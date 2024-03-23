@@ -13,11 +13,8 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 
 
 public class LionTest {
-    private Lion lion;
 
-    private static final String MALE = "Самец";
-    private static final String NONEXISTED_SEX_MESSAGE = "Несуществующий пол";
-    private static final String TEXT_EXCEPTION = "Используйте допустимые значения пола животного - самец или самка";
+    private Lion lion;
 
     @Mock
     private Feline feline;
@@ -30,26 +27,29 @@ public class LionTest {
 
     @Test
     public void testGetKittens() throws Exception {
-        lion = new Lion(MALE, feline);
+        String maleSex = "Самец";
+        lion = new Lion(maleSex, feline);
 
         lion.getKittens();
         Mockito.verify(feline).getKittens();
     }
 
-
     @Test
     public void testDoesHaveTextException() {
+        String message = "Несуществующий пол";
+        String exceptionMessage = "Используйте допустимые значения пола животного - самец или самка";
         Throwable throwable = catchThrowable(() -> {
-            lion = new Lion(NONEXISTED_SEX_MESSAGE, feline);
+            lion = new Lion(message, feline);
         });
         assertThat(throwable)
                 .isInstanceOf(Exception.class)
-                .hasMessage(TEXT_EXCEPTION);
+                .hasMessage(exceptionMessage);
     }
 
     @Test
     public void testDoesHaveMane() {
         boolean actual = lion.doesHaveMane();
+
         Assert.assertTrue(actual);
     }
 
@@ -61,6 +61,7 @@ public class LionTest {
         List<String> foodActual = lion.getFood();
 
         Mockito.verify(feline).getFood("Хищник");
+
         Assert.assertEquals("Некорректный список еды", List.of(foodExpected), foodActual);
     }
 }

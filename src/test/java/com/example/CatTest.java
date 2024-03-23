@@ -26,12 +26,14 @@ public class CatTest {
     public void testGetSound() {
         String soundExpected = "Мяу";
         String soundActual = cat.getSound();
+
         assertEquals(soundExpected, soundActual);
     }
 
     @Test
     public void testGetFood() throws Exception {
         cat.getFood();
+
         Mockito.verify(feline).eatMeat();
     }
 }
