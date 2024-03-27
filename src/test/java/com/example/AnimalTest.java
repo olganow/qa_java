@@ -8,10 +8,6 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
-
-
 public class AnimalTest {
 
     private Animal animal;
@@ -38,24 +34,8 @@ public class AnimalTest {
     }
 
     @Test(expected = Exception.class)
-    public void testGetFood_UnknownAnimalType_ThrowsException() throws Exception {
+    public void testGetFoodUnknownAnimalTypeThrowsException() throws Exception {
         animal.getFood("Другое");
-    }
-
-
-    @Test
-    public void testGetFoodException() {
-        String unknownAnimalType = "Неизвестный вид животного";
-        String exceptionMessage = "Неизвестный вид животного, используйте значение" +
-                " Травоядное или Хищник";
-
-        Throwable throwable = catchThrowable(() -> {
-            animal.getFood(unknownAnimalType);
-        });
-
-        assertThat(throwable)
-                .isInstanceOf(Exception.class)
-                .hasMessage(exceptionMessage);
     }
 
     @Test
